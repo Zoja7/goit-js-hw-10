@@ -63,7 +63,7 @@ export function fetchCatByBreed(breedId) {
     loader.classList.remove("hidden");
     
     return axiosInstance
-        .get(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}1234`)
+        .get(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`)
         .then(response => { 
             if (response.status === 200) {
                 const catData = response.data[0];
