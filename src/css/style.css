@@ -2,8 +2,15 @@
     display: none;
 }
 
+select, h2 {
+    margin-left: 8px;
+}
+
+
 p,img {
     max-width: 500px;
+    padding: 5px 5px;
+    
 }
 
 .loader .hidden{
