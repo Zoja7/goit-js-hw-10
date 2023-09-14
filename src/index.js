@@ -6,15 +6,14 @@ const breedSelect = document.querySelector(".breed-select");
 const catInfoDiv = document.querySelector(".cat-info");
 
 const loader = document.querySelector(".loader");
-const errorEl = document.querySelector(".error");
+// const errorEl = document.querySelector(".error");
 
-errorEl.classList.add("hidden");
-loader.classList.add("hidden");
 
 fetchBreeds()
   .then(breeds => {
-
-   breeds.forEach(breed => {
+    catInfoDiv.classList.toggle("hidden"); 
+    breedSelect.classList.toggle("hidden")
+    breeds.forEach(breed => {
     const option = document.createElement("option");
     option.value = breed.id;
     option.textContent = breed.name;
@@ -27,18 +26,21 @@ fetchBreeds()
 })
   .catch(error => {
 
-  errorEl.classList.toggle("hidden"); 
-  Notify.failure(`oops ...something went wrong`);
-
-  console.error(error);
-    
+  // errorEl.classList.toggle("hidden");
+    Notify.failure(`Oops!...Something went wrong!!!   
+                     Try reloading the page!!!`);
+    breedSelect.classList.toggle("hidden") &&
+    loader.classList.toggle("hidden"); 
+    console.error(error);
+    throw error;
   });
 
 
 breedSelect.addEventListener("change", () => { 
+
   const selectedBreedId = breedSelect.value;
 
-  catInfoDiv.classList.add("hidden"); 
+  catInfoDiv.classList.toggle("hidden"); 
   breedSelect.classList.toggle("hidden");
   loader.classList.toggle("hidden");
 
@@ -56,6 +58,7 @@ breedSelect.addEventListener("change", () => {
       <p>DESCRIPTION: ${catData.breeds[0].description}</p>
       <img src="${catData.url}" alt="${catData.breeds[0].name}" />
     `;
+        
     catInfoDiv.innerHTML = "";   
     catInfoDiv.innerHTML += markup;
        
@@ -63,16 +66,19 @@ breedSelect.addEventListener("change", () => {
               
       })
       .catch(error => { 
-        Notify.failure(`oops ...something went wrong`);
-        errorEl.classList.toggle("hidden"); 
+
+        // errorEl.classList.toggle("hidden");
+        Notify.failure(`Oops!...Something went wrong!!!   
+                     Try reloading the page!!!`);
+        breedSelect.classList.toggle("hidden");
 
         console.error(error);
         throw error;
       })
        .finally(() => {
              
-            loader.classList.toggle("hidden");
-            catInfoDiv.classList.toggle("hidden");
+          loader.classList.toggle("hidden");
+          catInfoDiv.classList.toggle("hidden");
           
         });
 
